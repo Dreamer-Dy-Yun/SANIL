@@ -37,10 +37,16 @@ export function createMockSanilApiClient(options: CreateMockSanilApiClientOption
   const delay = <T>(value: T) => new Promise<T>((resolve) => window.setTimeout(() => resolve(value), 180));
 
   const requireUser = () => {
-    if (!currentUser) {
-      throw new SanilApiError("auth", "로그인이 필요합니다.");
-    }
+    if (!currentUser) throw new SanilApiError("auth", "로그인이 필요합니다.");
     return currentUser;
+  };
+
+  const requireAdmin = () => {
+    const user = requireUser();
+    if (user.authority !== "ADMIN") {
+      throw new SanilApiError("permission", "관리자 권한이 필요합니다.");
+    }
+    return user;
   };
 
   const referencesFor = (productUuid: string) =>
@@ -79,9 +85,8 @@ export function createMockSanilApiClient(options: CreateMockSanilApiClientOption
   };
 
   const refreshSession = (record: SessionRecord) => {
-    const refs = referencesFor(record.session.productUuid);
     record.session.capturedSteps = record.captures.size;
-    record.session.status = record.captures.size >= refs.length ? "PROCESSING" : "PROCESSING";
+    record.session.status = "PROCESSING";
     record.session.updatedAt = now();
   };
 
@@ -125,7 +130,7 @@ export function createMockSanilApiClient(options: CreateMockSanilApiClientOption
       return delay<ReferenceShot[]>(references);
     },
     async createReferenceShot(request) {
-      requireUser();
+      requireAdmin();
       const product = products.find((item) => item.productUuid === request.productUuid);
       if (!product) {
         throw new SanilApiError("not_found", "제품을 찾을 수 없습니다.");
@@ -159,7 +164,7 @@ export function createMockSanilApiClient(options: CreateMockSanilApiClientOption
       return delay(reference);
     },
     async updateReferenceGuideShape(request) {
-      requireUser();
+      requireAdmin();
       const index = references.findIndex((reference) => reference.referenceUuid === request.referenceUuid);
       if (index < 0) {
         throw new SanilApiError("not_found", "기준 사진을 찾을 수 없습니다.");

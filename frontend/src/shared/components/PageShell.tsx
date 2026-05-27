@@ -19,6 +19,7 @@ export function PageShell({ user }: PageShellProps) {
         <nav className="main-nav" aria-label="주요 화면">
           <NavLink to="/products">제품</NavLink>
           <NavLink to="/inspections/history">검사 이력</NavLink>
+          {user?.authority === "ADMIN" ? <NavLink to="/admin/references">기준 사진 관리</NavLink> : null}
         </nav>
         {user ? (
           <div className="user-block">

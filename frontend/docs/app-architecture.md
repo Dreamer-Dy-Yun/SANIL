@@ -26,9 +26,10 @@ src/
 │   └── mock/
 │       └── fixtures/
 ├── features/
+│   ├── admin/
 │   ├── auth/
 │   ├── products/
-│   ├── reference-management/
+│   ├── references/
 │   ├── reference-guide/
 │   ├── inspection-session/
 │   ├── inspection-capture/
@@ -64,9 +65,10 @@ src/
 
 | Feature | 책임 |
 |---|---|
+| `admin` | 관리자 권한 기준 사진 등록/관리 |
 | `auth` | 로그인, 현재 사용자, 권한 표시 |
 | `products` | 드롭다운 또는 바코드/QR 촬영 기반 제품 선택 |
-| `reference-management` | 기준 사진 목록, 등록, 순서 관리 |
+| `references` | 작업자용 기준 사진 목록 조회와 guide 표시 |
 | `reference-guide` | 기준 사진 guide shape 표시/편집 |
 | `inspection-session` | 검사 세션 생성과 전체 상태 조회 |
 | `inspection-capture` | 단계형 QA 대상 촬영, 재촬영, 확정 |
@@ -98,7 +100,8 @@ src/
 |---|---|
 | `/login` | 로그인 |
 | `/products` | 제품 선택: 드롭다운 또는 바코드/QR 촬영 |
-| `/products/:productUuid/references` | 기준 사진 목록과 인라인 등록 |
+| `/products/:productUuid/references` | 기준 사진 목록 조회 |
+| `/admin/references` | 관리자 기준 사진 등록/관리 |
 | 후속 | guide shape 편집 |
 | `/inspections/new?productUuid=` | 검사 시작 |
 | `/inspections/:inspectionSessionUuid/capture/:stepOrder` | 단계형 촬영 |

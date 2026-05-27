@@ -11,7 +11,7 @@
 | 경로 | 책임 |
 |---|---|
 | [foundation-and-api-detail.md](foundation-and-api-detail.md) | composition root, dependency injection, `SanilApiClient`, HTTP/mock adapter, `ApiError`, fixture 경계를 정의한다. |
-| [reference-and-guide-detail.md](reference-and-guide-detail.md) | 기준 사진 등록/목록/순서, guide shape 표시/편집, ratio 좌표 검증과 overlay 렌더링 경계를 정의한다. |
+| [reference-and-guide-detail.md](reference-and-guide-detail.md) | 관리자 기준 사진 등록, 작업자 기준 사진 조회, guide shape 표시/편집, ratio 좌표 검증과 overlay 렌더링 경계를 정의한다. |
 | [inspection-capture-detail.md](inspection-capture-detail.md) | 검사 세션 생성, 단계형 촬영, `CameraAdapter`, capture state machine, 촬영 확정 API 경계를 정의한다. |
 | [result-history-state-detail.md](result-history-state-detail.md) | 처리 대기, 최종 결과, 검사 이력, VLM finding 표시, status display 계약을 정의한다. |
 

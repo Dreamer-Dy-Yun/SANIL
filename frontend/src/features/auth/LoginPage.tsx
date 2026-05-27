@@ -47,7 +47,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
         <form onSubmit={submit} className="login-form">
           <label>
             로그인 ID
-            <input name="loginId" defaultValue="qa.operator" autoComplete="username" />
+            <input name="loginId" defaultValue="qa.admin" autoComplete="username" />
           </label>
           <label>
             비밀번호

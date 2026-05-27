@@ -4,6 +4,7 @@ import { PageShell } from "../shared/components/PageShell";
 import { ErrorState } from "../shared/components/ErrorState";
 import { LoginPage } from "../features/auth/LoginPage";
 import { ProductsPage } from "../features/products/ProductsPage";
+import { AdminReferenceManagementPage } from "../features/admin/AdminReferenceManagementPage";
 import { ReferenceListPage } from "../features/references/ReferenceListPage";
 import { CapturePage } from "../features/inspection/CapturePage";
 import { ProcessingPage } from "../features/inspection/ProcessingPage";
@@ -12,6 +13,11 @@ import { HistoryPage } from "../features/inspection/HistoryPage";
 import { useFrontendServices } from "./serviceContext";
 import { toApiError } from "../api/errors";
 import type { CurrentUser } from "../api/contracts";
+
+const ADMIN_REQUIRED_ERROR = {
+  kind: "permission" as const,
+  message: "관리자 권한이 필요합니다.",
+};
 
 export function App() {
   const { apiClient } = useFrontendServices();
@@ -71,6 +77,10 @@ export function App() {
       <Route element={<PageShell user={user} />}>
         <Route index element={<Navigate to="/products" replace />} />
         <Route path="/products" element={<ProductsPage />} />
+        <Route
+          path="/admin/references"
+          element={user.authority === "ADMIN" ? <AdminReferenceManagementPage /> : <ErrorState error={ADMIN_REQUIRED_ERROR} />}
+        />
         <Route path="/products/:productUuid/references" element={<ReferenceListPage />} />
         <Route path="/inspections/:inspectionSessionUuid/capture/:stepOrder" element={<CapturePage />} />
         <Route path="/inspections/:inspectionSessionUuid/processing" element={<ProcessingPage />} />

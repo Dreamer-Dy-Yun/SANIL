@@ -4,7 +4,7 @@
 
 제품별 기준 사진 등록, 목록, 순서 관리와 guide shape 표시/편집의 상세 설계를 정의한다.
 
-이 문서는 구현 코드가 아니라 이후 `reference-management`, `reference-guide`, `inspection-capture` 구현자가 따를 계약 문서다.
+이 문서는 구현 코드가 아니라 이후 `admin`, `references`, `reference-guide`, `inspection-capture` 구현자가 따를 계약 문서다.
 
 ## 참조 기준
 
@@ -21,7 +21,7 @@
 
 | 구분 | 포함 | 제외 |
 |---|---|---|
-| 기준 사진 | 제품별 목록, 등록, 순서 표시와 변경 요청 설계 | QA 대상 촬영 이미지 생성 |
+| 기준 사진 | 작업자용 제품별 목록, 관리자 등록, 순서 표시와 변경 요청 설계 | QA 대상 촬영 이미지 생성 |
 | guide shape | 저장 계약, 표시, 편집 draft, 검증, 저장 요청 설계 | VLM 결과 생성, 판정 보정 |
 | 좌표 | `origin: "top_left"`, `unit: "ratio"` 검증과 렌더링 변환 | 픽셀 좌표 저장 |
 | overlay | 기준 이미지와 카메라 preview 위 렌더링 계약 | 실제 카메라 제어 |
@@ -30,7 +30,8 @@
 
 | 영역 | 책임 | 금지 경계 |
 |---|---|---|
-| `reference-management` | 기준 사진 목록 조회, 기준 사진 등록, 순서 표시, 순서 변경 요청, guide 편집 진입 | guide shape 내부 좌표 편집, QA 대상 촬영 결과 생성 |
+| `admin` | 기준 사진 등록, 순서 표시, 순서 변경 요청, guide 편집 진입 | QA 대상 촬영 결과 생성 |
+| `references` | 작업자용 기준 사진 목록 조회와 guide 등록 상태 표시 | 기준 사진 등록/수정 |
 | `reference-guide` | `ReferenceGuideShape` 표시, 편집 draft 관리, ratio 검증, guide 저장 요청 | 기준 사진 파일 업로드, VLM 판정 결과 생성 |
 | `inspection-capture` | 저장된 기준 사진과 guide shape를 촬영 preview overlay로 소비 | guide shape 저장/수정, 기준 사진 순서 변경 |
 | `src/api` | HTTP/mock adapter 뒤에서 API 계약 제공 | 화면/훅/컴포넌트에 HTTP 또는 mock 직접 노출 |
@@ -101,7 +102,8 @@ export interface ReferenceGuideShape {
 
 | Route | Feature | 목적 |
 |---|---|---|
-| `/products/:productUuid/references` | `reference-management` | 기준 사진 목록, 기준 사진 등록, 순서, guide 등록 상태 확인 |
+| `/products/:productUuid/references` | `references` | 작업자용 기준 사진 목록과 guide 등록 상태 확인 |
+| `/admin/references` | `admin` | 관리자 기준 사진 등록/관리 |
 | `/inspections/:inspectionSessionUuid/capture/:stepOrder` | `inspection-capture` | 저장된 guide shape를 촬영 overlay로 소비 |
 
 guide shape 편집 화면은 후속 구현 대상이다. 현재 화면은 guide 등록 상태와 overlay 표시만 책임진다.
@@ -115,6 +117,8 @@ guide shape 편집 화면은 후속 구현 대상이다. 현재 화면은 guide 
 | `listReferenceShots(productUuid)` | 제품 UUID | `ReferenceShot[]` | 실패를 빈 배열로 바꾸지 않고 오류 상태를 표시 |
 | `createReferenceShot(request)` | 제품 UUID, 이름, 순서, 설명, 이미지 파일 | 생성된 `ReferenceShot` | 업로드/검증 실패 시 등록 완료로 표시하지 않음 |
 | `updateReferenceGuideShape(request)` | 기준 사진 UUID, `ReferenceGuideShape` | 갱신된 `ReferenceShot` | guide 저장 실패 시 draft 유지, 저장 완료로 표시하지 않음 |
+
+`createReferenceShot`과 `updateReferenceGuideShape`는 관리자 화면에서만 호출한다. 작업자용 기준 사진 목록 화면은 `listReferenceShots`만 호출한다.
 
 ### 후속 API 계약이 필요한 작업
 
@@ -144,6 +148,8 @@ export interface ReorderReferenceShotsRequest {
 - mock adapter가 화면 편의를 위해 백엔드에 없는 성공 상태를 만들지 않는다.
 
 ## 기준 사진 등록 상세
+
+기준 사진 등록은 `/admin/references` 관리자 화면의 책임이다. 제품 선택, 등록 폼, 등록 후 목록 갱신은 같은 관리자 화면 안에서 처리한다.
 
 ### 입력
 

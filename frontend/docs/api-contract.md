@@ -320,6 +320,8 @@ export interface UpdateReferenceGuideShapeRequest {
 }
 ```
 
+`createReferenceShot`과 `updateReferenceGuideShape`는 관리자 권한 작업이다. API 또는 adapter는 권한이 부족하면 `permission` 오류를 반환해야 한다.
+
 ## 금지
 
 - API 실패를 빈 배열이나 성공 상태로 바꾸지 않는다.

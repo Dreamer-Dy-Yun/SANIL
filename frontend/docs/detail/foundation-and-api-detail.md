@@ -187,8 +187,8 @@ export interface SanilApiClient {
 | `listProducts` | 없음 | `ProductSummary[]` | 없음 | `auth`, `permission`, `network`, `server` | `referenceCount` 임의 계산 |
 | `findProductByCode` | 제품 코드 문자열 | `ProductSummary` | 없음 | `validation`, `not_found`, `network`, `server` | 스캔 문자열을 화면에서 임의 제품으로 보정 |
 | `listReferenceShots` | `productUuid` | `ReferenceShot[]` | 없음 | `validation`, `not_found`, `network`, `server` | image 또는 guideShape 누락을 임의 객체로 보정 |
-| `createReferenceShot` | `CreateReferenceShotRequest` | `ReferenceShot` | 이미지 업로드와 기준 사진 생성 | `validation`, `conflict`, `network`, `server` | 업로드 실패 후 성공 reference 반환 |
-| `updateReferenceGuideShape` | `UpdateReferenceGuideShapeRequest` | `ReferenceShot` | guide shape 저장 | `validation`, `not_found`, `conflict`, `network`, `server` | ratio 좌표를 pixel 좌표로 저장 |
+| `createReferenceShot` | `CreateReferenceShotRequest` | `ReferenceShot` | 이미지 업로드와 기준 사진 생성 | `permission`, `validation`, `conflict`, `network`, `server` | 업로드 실패 후 성공 reference 반환 |
+| `updateReferenceGuideShape` | `UpdateReferenceGuideShapeRequest` | `ReferenceShot` | guide shape 저장 | `permission`, `validation`, `not_found`, `conflict`, `network`, `server` | ratio 좌표를 pixel 좌표로 저장 |
 | `createInspectionSession` | `productUuid` | `InspectionSession` | 검사 세션 생성 | `validation`, `not_found`, `conflict`, `network`, `server` | session uuid를 프론트에서 생성해 성공처럼 표시 |
 | `getInspectionSession` | `inspectionSessionUuid` | `InspectionSession` | 없음 | `not_found`, `network`, `server` | `capturedSteps`, `totalSteps` 임의 계산 |
 | `getInspectionCaptureStep` | `inspectionSessionUuid`, `stepOrder` | `InspectionCaptureStep` | 없음 | `validation`, `not_found`, `network`, `server` | 누락 reference를 placeholder로 대체 |

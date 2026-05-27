@@ -18,10 +18,10 @@ const image = (imageUuid: string, originalFilename: string, width = 1280, height
 });
 
 export const mockUser: CurrentUser = {
-  userUuid: "user-qa-001",
-  loginId: "qa.operator",
-  name: "QA 작업자",
-  authority: "USER",
+  userUuid: "user-admin-001",
+  loginId: "qa.admin",
+  name: "QA 관리자",
+  authority: "ADMIN",
 };
 
 export const mockProducts: ProductSummary[] = [

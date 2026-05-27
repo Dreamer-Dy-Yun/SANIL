@@ -48,8 +48,8 @@
 |---|---|---|
 | `/login` | 로그인 | auth |
 | `/products` | 제품 선택 | `ProductSummary[]`, scanned product code |
-| `/products/:productUuid/references` | 기준 사진 목록 | `ReferenceShot[]` |
-| `/products/:productUuid/references` | 기준 사진 목록과 인라인 등록 | product, image upload |
+| `/products/:productUuid/references` | 기준 사진 목록 조회 | `ReferenceShot[]` |
+| `/admin/references` | 관리자 기준 사진 등록/관리 | product, image upload |
 | 후속 | 가이드 shape 편집 | `ReferenceGuideShape` |
 | `/inspections/new?productUuid=` | 검사 시작 | product, references |
 | `/inspections/:inspectionSessionUuid/capture/:stepOrder` | 단계형 촬영 | session, step, camera |
@@ -72,9 +72,10 @@ URL의 세션 식별자는 `inspectionSessionUuid`로 쓴다. DB 기준은 `INSP
 
 | Feature | 책임 | 수정 금지 경계 |
 |---|---|---|
+| `admin` | 기준 사진 등록/관리 등 관리자 작업 | 검사 세션 생성, QA 대상 촬영 |
 | `auth` | 로그인, 현재 사용자 확인, 권한 표시 | 제품/검사 비즈니스 판단 |
 | `products` | 제품 목록, 드롭다운 선택, 바코드/QR 촬영 선택 | 기준 사진 데이터 생성 |
-| `reference-management` | 기준 사진 목록, 등록, 순서, 설명 | QA 대상 촬영 결과 생성 |
+| `references` | 작업자용 기준 사진 목록 조회와 guide 표시 | 기준 사진 생성/수정 |
 | `reference-guide` | `guideShape` 표시/편집 | VLM 판정 결과 생성 |
 | `inspection-session` | 검사 세션 생성, 전체 진행 상태 조회 | 카메라 제어 |
 | `inspection-capture` | 한 단계 촬영, 재촬영, 확정 | 최종 합부 결과 표시 |
