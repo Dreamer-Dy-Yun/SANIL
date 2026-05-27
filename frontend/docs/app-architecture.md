@@ -67,7 +67,7 @@ src/
 |---|---|
 | `admin` | 관리자 권한 기준 사진 등록/관리 |
 | `auth` | 로그인, 현재 사용자, 권한 표시 |
-| `products` | 드롭다운 선택과 바코드/QR 촬영 결과를 같은 제품 선택값으로 반영 |
+| `products` | 드롭다운 선택과 바코드/QR 카메라 촬영 결과를 같은 제품 선택값으로 반영 |
 | `references` | 작업자용 기준 사진 목록 조회와 guide 표시 |
 | `reference-guide` | 기준 사진 guide shape 표시/편집 |
 | `inspection-session` | 검사 세션 생성과 전체 상태 조회 |
@@ -99,7 +99,7 @@ src/
 | Route | 화면 |
 |---|---|
 | `/login` | 로그인 |
-| `/products` | 제품 선택: 드롭다운 선택 또는 바코드/QR 촬영 후 드롭다운 갱신 |
+| `/products` | 제품 선택: 드롭다운 선택 또는 바코드/QR 카메라 촬영 후 드롭다운 갱신 |
 | `/products/:productUuid/references` | 기준 사진 목록 조회 |
 | `/admin/references` | 관리자 기준 사진 등록/관리 |
 | 후속 | guide shape 편집 |

@@ -6,6 +6,7 @@ import { useFrontendServices } from "../../app/serviceContext";
 import { ErrorState } from "../../shared/components/ErrorState";
 import { LoadingState } from "../../shared/components/LoadingState";
 import type { ProductSummary } from "../../api/contracts";
+import type { ProductCodeScanResult } from "../../shared/scanner/productCodeScannerAdapter";
 
 type BusyAction = "scan" | "start";
 
@@ -22,6 +23,7 @@ export function ProductsPage() {
   const [selectedProductUuid, setSelectedProductUuid] = useState("");
   const [formMessage, setFormMessage] = useState<FormMessage | null>(null);
   const [busyAction, setBusyAction] = useState<BusyAction | null>(null);
+  const [lastScanResult, setLastScanResult] = useState<ProductCodeScanResult | null>(null);
 
   useEffect(() => {
     apiClient
@@ -59,6 +61,7 @@ export function ProductsPage() {
 
     try {
       const scanResult = await productCodeScannerAdapter.captureProductCode();
+      setLastScanResult(scanResult);
       const product = await apiClient.findProductByCode(scanResult.rawValue);
       setProducts((currentProducts) => {
         if (!currentProducts || currentProducts.some((item) => item.productUuid === product.productUuid)) {
@@ -110,10 +113,6 @@ export function ProductsPage() {
           </label>
 
           <div className="selection-actions">
-            <button className="secondary-button" disabled={isBusy} type="button" onClick={() => void scanProductCode()}>
-              <QrCode size={18} />
-              {busyAction === "scan" ? "촬영 중" : "바코드/QR 촬영"}
-            </button>
             <button
               className="primary-button"
               disabled={isBusy || products.length === 0}
@@ -122,6 +121,28 @@ export function ProductsPage() {
             >
               {busyAction === "start" ? "시작 중" : "검사 시작"}
             </button>
+          </div>
+        </div>
+
+        <div className="scanner-camera-panel" aria-label="바코드/QR 카메라">
+          <div className="scanner-camera-toolbar">
+            <strong>바코드/QR 카메라</strong>
+            {lastScanResult ? <span>{lastScanResult.rawValue}</span> : <span>대기</span>}
+          </div>
+          <div className={lastScanResult ? "scanner-viewport scanner-viewport--captured" : "scanner-viewport"}>
+            {lastScanResult ? <img src={lastScanResult.capturedImage.previewUrl} alt="촬영된 바코드/QR 이미지" /> : null}
+            <div className="scanner-reticle" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+            <div className="scanner-control-bar">
+              <button className="primary-button" disabled={isBusy} type="button" onClick={() => void scanProductCode()}>
+                <QrCode size={18} />
+                {busyAction === "scan" ? "판독 중" : "코드 촬영"}
+              </button>
+            </div>
           </div>
         </div>
 
