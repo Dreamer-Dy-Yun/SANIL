@@ -4,6 +4,11 @@
   min-height: 100vh;
 }
 
+.app-topbar,
+.drawer-backdrop {
+  display: none;
+}
+
 .app-sidebar {
   display: flex;
   flex-direction: column;
@@ -11,6 +16,13 @@
   padding: 28px 22px;
   color: #f5f8f3;
   background: #15231d;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .app-main {
@@ -51,12 +63,6 @@
   padding: 28px;
   border-radius: 8px;
   background: #f6f8f4;
-}
-
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 16px;
 }
 
 .reference-list,

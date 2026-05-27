@@ -1,3 +1,5 @@
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import type { CurrentUser } from "../../api/contracts";
 
@@ -5,21 +7,61 @@ interface PageShellProps {
   user: CurrentUser | null;
 }
 
+function BrandBlock() {
+  return (
+    <div className="brand-block">
+      <span className="brand-mark">S</span>
+      <div>
+        <strong>SANIL QA</strong>
+        <small>Photo Inspection</small>
+      </div>
+    </div>
+  );
+}
+
 export function PageShell({ user }: PageShellProps) {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const closeDrawer = () => setIsDrawerOpen(false);
+
   return (
     <div className="app-frame">
-      <aside className="app-sidebar">
-        <div className="brand-block">
-          <span className="brand-mark">S</span>
-          <div>
-            <strong>SANIL QA</strong>
-            <small>Photo Inspection</small>
-          </div>
+      <header className="app-topbar">
+        <button
+          aria-label="메뉴 열기"
+          className="icon-button icon-button--inverse"
+          type="button"
+          onClick={() => setIsDrawerOpen(true)}
+        >
+          <Menu size={22} />
+        </button>
+        <BrandBlock />
+        {user ? <span className="app-topbar__user">{user.name}</span> : null}
+      </header>
+
+      <aside className={isDrawerOpen ? "app-sidebar app-sidebar--open" : "app-sidebar"}>
+        <div className="sidebar-header">
+          <BrandBlock />
+          <button
+            aria-label="메뉴 닫기"
+            className="icon-button icon-button--inverse sidebar-close"
+            type="button"
+            onClick={closeDrawer}
+          >
+            <X size={22} />
+          </button>
         </div>
         <nav className="main-nav" aria-label="주요 화면">
-          <NavLink to="/products">제품</NavLink>
-          <NavLink to="/inspections/history">검사 이력</NavLink>
-          {user?.authority === "ADMIN" ? <NavLink to="/admin/references">기준 사진 관리</NavLink> : null}
+          <NavLink to="/products" onClick={closeDrawer}>
+            제품
+          </NavLink>
+          <NavLink to="/inspections/history" onClick={closeDrawer}>
+            검사 이력
+          </NavLink>
+          {user?.authority === "ADMIN" ? (
+            <NavLink to="/admin/references" onClick={closeDrawer}>
+              기준 사진 관리
+            </NavLink>
+          ) : null}
         </nav>
         {user ? (
           <div className="user-block">
@@ -28,6 +70,9 @@ export function PageShell({ user }: PageShellProps) {
           </div>
         ) : null}
       </aside>
+
+      {isDrawerOpen ? <button aria-label="메뉴 닫기" className="drawer-backdrop" type="button" onClick={closeDrawer} /> : null}
+
       <main className="app-main">
         <Outlet />
       </main>

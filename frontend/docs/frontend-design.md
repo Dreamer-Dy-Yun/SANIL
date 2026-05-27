@@ -30,7 +30,7 @@
 ## MVP 화면 흐름
 
 1. 로그인
-2. 제품 선택: 드롭다운 또는 바코드/QR 촬영
+2. 제품 선택: 드롭다운 선택 또는 바코드/QR 촬영으로 드롭다운 선택값 갱신
 3. 제품별 기준 사진 목록
 4. 기준 사진 등록/수정
 5. 기준 사진 가이드 shape 확인/편집
@@ -62,8 +62,9 @@ URL의 세션 식별자는 `inspectionSessionUuid`로 쓴다. DB 기준은 `INSP
 ## M86XE Layout 기준
 
 - 1차 기준 viewport는 8 inch, 1280 x 800, 16:10 landscape다.
-- 해당 범위에서는 데스크톱형 좌측 사이드바 대신 상단 작업바를 사용한다.
-- 제품 선택 화면은 드롭다운/바코드/QR 선택 패널을 상단에 고정된 업무 시작점으로 두고, 제품 카드는 선택/참조용으로 제한한다.
+- 해당 범위에서는 데스크톱형 좌측 사이드바 대신 상단 메뉴 버튼과 drawer navigation을 사용한다.
+- 제품 선택 화면은 드롭다운을 단일 선택 상태로 두고, 바코드/QR 촬영 성공 시 해당 제품을 드롭다운에 반영한다.
+- 제품 선택 화면에는 제품 카드 목록을 두지 않는다.
 - 검사 시작 액션은 선택 패널에 모아 오조작을 줄인다.
 - 촬영 화면은 preview 영역을 최우선으로 두고, 기준 썸네일과 촬영 확정 버튼은 오른쪽 작업 패널에 둔다.
 - 주요 입력과 버튼은 최소 48px 터치 높이를 기준으로 한다.
@@ -74,7 +75,7 @@ URL의 세션 식별자는 `inspectionSessionUuid`로 쓴다. DB 기준은 `INSP
 |---|---|---|
 | `admin` | 기준 사진 등록/관리 등 관리자 작업 | 검사 세션 생성, QA 대상 촬영 |
 | `auth` | 로그인, 현재 사용자 확인, 권한 표시 | 제품/검사 비즈니스 판단 |
-| `products` | 제품 목록, 드롭다운 선택, 바코드/QR 촬영 선택 | 기준 사진 데이터 생성 |
+| `products` | 제품 목록, 드롭다운 선택, 바코드/QR 촬영 결과 반영 | 기준 사진 데이터 생성 |
 | `references` | 작업자용 기준 사진 목록 조회와 guide 표시 | 기준 사진 생성/수정 |
 | `reference-guide` | `guideShape` 표시/편집 | VLM 판정 결과 생성 |
 | `inspection-session` | 검사 세션 생성, 전체 진행 상태 조회 | 카메라 제어 |
@@ -93,14 +94,14 @@ sequenceDiagram
     participant Scanner as ProductCodeScannerAdapter
     participant Camera as CameraAdapter
 
-    User->>UI: 제품 선택 방식 선택
-    alt 드롭다운
+    alt 드롭다운 선택
       User->>UI: 제품 선택
     else 바코드/QR 촬영
       User->>Scanner: 바코드/QR 촬영
       Scanner-->>UI: productCode
       UI->>API: findProductByCode(productCode)
       API-->>UI: ProductSummary
+      UI->>UI: 드롭다운 선택값 갱신
     end
     UI->>API: createInspectionSession(productUuid)
     API-->>UI: InspectionSession

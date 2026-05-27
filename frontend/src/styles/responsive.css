@@ -3,7 +3,6 @@
   .capture-grid,
   .reference-workspace,
   .selection-body,
-  .selection-body--scan,
   .reference-row,
   .result-item,
   .result-images,
@@ -11,25 +10,8 @@
     grid-template-columns: 1fr;
   }
 
-  .selection-mode {
-    width: 100%;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .scan-result {
+  .selection-actions {
     display: grid;
-  }
-
-  .app-sidebar {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    padding: 14px 18px;
-  }
-
-  .main-nav,
-  .user-block {
-    display: none;
   }
 
   .app-main {
