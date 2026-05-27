@@ -88,24 +88,16 @@
 
 .capture-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 320px;
-  gap: 18px;
+  grid-template-columns: minmax(0, 1fr);
 }
 
-.capture-side,
 .login-form,
 .reference-form,
-.capture-actions,
 .action-row,
 .result-copy,
 .finding {
   display: grid;
   gap: 12px;
-}
-
-.capture-side {
-  align-content: start;
-  gap: 16px;
 }
 
 .result-item {

@@ -13,6 +13,8 @@
 - 최종 합부 결과는 모든 필수 촬영이 끝난 뒤에만 표시한다.
 - 촬영 화면에서는 개별 판정, finding, `FindingJudge`를 노출하지 않는다.
 - `M86XE` 계열 태블릿을 1차 촬영 장비 제약으로 보되 OS, 브라우저, 카메라 세부 사양은 실기 확인 전 임의 확정하지 않는다.
+- 촬영 지시와 촬영/확정 액션은 우측 보조 패널이 아니라 촬영 영역 내부의 상단/하단 바에 둔다.
+- 우측 기준 썸네일 패널은 1차 촬영 화면에서 제외한다.
 
 ## 범위
 
@@ -220,7 +222,7 @@ export type CaptureState =
 | `camera_starting` | preview 시작 실패 | `camera_failed` | 오류 표시 |
 | `camera_ready` | 촬영 요청 | `capturing` | 중복 촬영 버튼 잠금 |
 | `capturing` | 캡처 성공 | `captured_unconfirmed` | preview용 object URL은 UI 소유로 생성 가능 |
-| `capturing` | 캡처 실패 | `capture_failed` | 확정/다음 버튼 비활성 |
+| `capturing` | 캡처 실패 | `capture_failed` | 촬영 확정 액션 비활성 |
 | `captured_unconfirmed` | 재촬영 | `camera_ready` | 기존 preview object URL 해제 |
 | `captured_unconfirmed` | 확정 요청 | `confirming` | `confirmInspectionCapture` 호출 |
 | `confirming` | 확정 성공 + `QUEUED` | `confirmed_queued` | 세션/단계 query 갱신 |
@@ -369,7 +371,7 @@ export interface ConfirmInspectionCaptureResponse {
 
 - 후면 카메라가 `preferredFacingMode: "environment"`로 선택되는가
 - 권한 거부 후 재시도 UX가 브라우저 정책과 충돌하지 않는가
-- portrait/landscape에서 preview, overlay, action bar가 겹치지 않는가
+- portrait/landscape에서 preview, overlay, 상단 촬영 지시, 하단 action bar가 겹치지 않는가
 - 촬영 파일 해상도와 업로드 크기가 백엔드 제한과 맞는가
 - 네트워크 끊김 후 같은 촬영 이미지를 재확정할 수 있는가
 - 전체 촬영 완료 전 개별 판정이 화면에 나타나지 않는가

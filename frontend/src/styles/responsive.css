@@ -30,4 +30,18 @@
   .capture-preview {
     min-height: 360px;
   }
+
+  .capture-instruction-bar {
+    display: grid;
+    gap: 4px;
+  }
+
+  .capture-action-bar {
+    display: grid;
+  }
+
+  .capture-action-bar .primary-button,
+  .capture-action-bar .secondary-button {
+    width: 100%;
+  }
 }

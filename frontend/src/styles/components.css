@@ -188,17 +188,54 @@ figure img,
   object-fit: cover;
 }
 
-.reference-thumb--side {
-  width: 100%;
-}
-
 .capture-preview {
   min-height: 560px;
+}
+
+.capture-instruction-bar,
+.capture-action-bar {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  z-index: 2;
+}
+
+.capture-instruction-bar {
+  top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  color: #f5f8f3;
+  background: rgba(18, 35, 28, 0.86);
+}
+
+.capture-instruction-bar strong {
+  flex: 0 0 auto;
+}
+
+.capture-instruction-bar span {
+  min-width: 0;
+  line-height: 1.45;
+}
+
+.capture-action-bar {
+  bottom: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.capture-action-bar .primary-button,
+.capture-action-bar .secondary-button {
+  min-width: 140px;
 }
 
 .guide-overlay {
   position: absolute;
   inset: 0;
+  z-index: 1;
   width: 100%;
   height: 100%;
   pointer-events: none;

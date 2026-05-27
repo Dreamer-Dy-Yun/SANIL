@@ -91,29 +91,15 @@
   }
 
   .capture-grid {
-    grid-template-columns: minmax(0, 1fr) 292px;
-    gap: 14px;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .capture-preview {
-    height: min(620px, calc(100vh - 160px));
-    min-height: 500px;
+    height: min(650px, calc(100vh - 150px));
+    min-height: 540px;
   }
 
-  .capture-side {
-    gap: 12px;
-  }
-
-  .capture-side h2 {
-    margin: 0;
-    font-size: 18px;
-  }
-
-  .capture-side p {
-    margin: 6px 0 0;
-  }
-
-  .capture-actions {
+  .capture-action-bar {
     gap: 10px;
   }
 

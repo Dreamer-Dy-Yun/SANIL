@@ -82,23 +82,16 @@ export function CapturePage() {
 
       <div className="capture-grid">
         <section className="capture-preview">
+          <div className="capture-instruction-bar">
+            <strong>촬영 지시</strong>
+            <span>{step.reference.remarks}</span>
+          </div>
           <img
             src={captured?.previewUrl ?? step.reference.image?.imageUrl}
             alt={captured ? "촬영 미리보기" : "기준 사진"}
           />
           <GuideOverlay guideShape={step.reference.guideShape} />
-        </section>
-
-        <aside className="capture-side">
-          <div className="reference-thumb reference-thumb--side">
-            {step.reference.image ? <img src={step.reference.image.imageUrl} alt={step.reference.name} /> : null}
-            <GuideOverlay guideShape={step.reference.guideShape} />
-          </div>
-          <div>
-            <h2>촬영 지시</h2>
-            <p>{step.reference.remarks}</p>
-          </div>
-          <div className="capture-actions">
+          <div className="capture-action-bar">
             <button type="button" onClick={() => void capture()} className="secondary-button">
               {captured ? <RotateCcw size={18} /> : <Camera size={18} />}
               {captured ? "재촬영" : "촬영"}
@@ -108,7 +101,7 @@ export function CapturePage() {
               {isConfirming ? "확정 중" : "촬영 확정"}
             </button>
           </div>
-        </aside>
+        </section>
       </div>
     </section>
   );
