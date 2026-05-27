@@ -166,6 +166,8 @@ export interface ReferenceShot {
 }
 ```
 
+바코드/QR 촬영 결과는 화면에서 제품으로 임의 매핑하지 않고, 디코딩된 문자열을 `findProductByCode(productCode)`로 조회해 `ProductSummary`를 받는다.
+
 ## Inspection Session
 
 검사 세션은 DB `INSPECTION_SESSION.uuid`를 API에서 `inspectionSessionUuid`로 노출한다.
@@ -286,6 +288,7 @@ export interface SanilApiClient {
   getCurrentUser(): Promise<CurrentUser>;
 
   listProducts(): Promise<ProductSummary[]>;
+  findProductByCode(productCode: string): Promise<ProductSummary>;
   listReferenceShots(productUuid: Uuid): Promise<ReferenceShot[]>;
   createReferenceShot(request: CreateReferenceShotRequest): Promise<ReferenceShot>;
   updateReferenceGuideShape(request: UpdateReferenceGuideShapeRequest): Promise<ReferenceShot>;

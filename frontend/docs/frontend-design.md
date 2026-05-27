@@ -22,6 +22,7 @@
 | Local UI state | React state/reducer | 촬영 프리뷰, 버튼 상태, 오버레이 표시 등 화면 내부 상태에 한정 |
 | Styling | CSS Modules 또는 scoped CSS | 초기 구현에서 스타일 책임을 컴포넌트 단위로 유지 |
 | Camera | injected `CameraAdapter` | 브라우저 `getUserMedia`와 향후 앱 래퍼/네이티브 제어 분리 |
+| Product scan | injected `ProductCodeScannerAdapter` | 바코드/QR 촬영과 제품 코드 디코딩을 제품 화면에서 분리 |
 | Mock | `src/api` 뒤의 mock adapter + fixture | 화면/훅/컴포넌트에 mock 데이터 유입 방지 |
 
 전역 mutable store는 기본 선택지로 쓰지 않는다. 여러 route에서 공유해야 하는 값은 URL, API, query cache, 명시적 provider 중 하나로 소유권을 정한다.
@@ -29,7 +30,7 @@
 ## MVP 화면 흐름
 
 1. 로그인
-2. 제품 선택
+2. 제품 선택: 드롭다운 또는 바코드/QR 촬영
 3. 제품별 기준 사진 목록
 4. 기준 사진 등록/수정
 5. 기준 사진 가이드 shape 확인/편집
@@ -46,7 +47,7 @@
 | Route | 화면 | 주요 데이터 |
 |---|---|---|
 | `/login` | 로그인 | auth |
-| `/products` | 제품 선택 | `ProductSummary[]` |
+| `/products` | 제품 선택 | `ProductSummary[]`, scanned product code |
 | `/products/:productUuid/references` | 기준 사진 목록 | `ReferenceShot[]` |
 | `/products/:productUuid/references` | 기준 사진 목록과 인라인 등록 | product, image upload |
 | 후속 | 가이드 shape 편집 | `ReferenceGuideShape` |
@@ -63,7 +64,7 @@ URL의 세션 식별자는 `inspectionSessionUuid`로 쓴다. DB 기준은 `INSP
 | Feature | 책임 | 수정 금지 경계 |
 |---|---|---|
 | `auth` | 로그인, 현재 사용자 확인, 권한 표시 | 제품/검사 비즈니스 판단 |
-| `products` | 제품 목록과 선택 | 기준 사진/검사 세션 생성 |
+| `products` | 제품 목록, 드롭다운 선택, 바코드/QR 촬영 선택 | 기준 사진 데이터 생성 |
 | `reference-management` | 기준 사진 목록, 등록, 순서, 설명 | QA 대상 촬영 결과 생성 |
 | `reference-guide` | `guideShape` 표시/편집 | VLM 판정 결과 생성 |
 | `inspection-session` | 검사 세션 생성, 전체 진행 상태 조회 | 카메라 제어 |
@@ -79,9 +80,18 @@ sequenceDiagram
     actor User as QA 촬영자
     participant UI as Frontend
     participant API as SanilApiClient
+    participant Scanner as ProductCodeScannerAdapter
     participant Camera as CameraAdapter
 
-    User->>UI: 제품 선택
+    User->>UI: 제품 선택 방식 선택
+    alt 드롭다운
+      User->>UI: 제품 선택
+    else 바코드/QR 촬영
+      User->>Scanner: 바코드/QR 촬영
+      Scanner-->>UI: productCode
+      UI->>API: findProductByCode(productCode)
+      API-->>UI: ProductSummary
+    end
     UI->>API: createInspectionSession(productUuid)
     API-->>UI: InspectionSession
     UI->>API: getInspectionCaptureStep(inspectionSessionUuid, stepOrder)

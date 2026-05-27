@@ -10,6 +10,7 @@
 |---|---|---|
 | `components/` | 상태, layout, guide overlay 등 공통 UI | 공통 UI 계약이나 스타일 클래스가 바뀔 때 |
 | `camera/` | 카메라 촬영 adapter contract와 mock 구현 | 실제 장비/브라우저 카메라 연동 방식이 바뀔 때 |
+| `scanner/` | 바코드/QR 촬영 기반 제품 코드 scanner adapter | 디코더, 장비 연동, mock scan 정책이 바뀔 때 |
 | `imaging/` | guide shape ratio 좌표 계산 | guide 좌표 계약이나 렌더링 계산이 바뀔 때 |
 | `status/` | 검사 상태 표시 label/tone mapping | 상태 enum 또는 표시 정책이 바뀔 때 |
 

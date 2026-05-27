@@ -107,6 +107,14 @@ export function createMockSanilApiClient(options: CreateMockSanilApiClientOption
       requireUser();
       return delay<ProductSummary[]>(products);
     },
+    async findProductByCode(productCode) {
+      requireUser();
+      const product = products.find((item) => item.code === productCode.trim());
+      if (!product) {
+        throw new SanilApiError("not_found", "스캔한 코드와 일치하는 제품을 찾을 수 없습니다.");
+      }
+      return delay<ProductSummary>(product);
+    },
     async listReferenceShots(productUuid) {
       requireUser();
       if (!products.some((product) => product.productUuid === productUuid)) {

@@ -105,6 +105,7 @@ export interface CreateFrontendServicesOptions {
 export interface FrontendServices {
   apiClient: SanilApiClient;
   cameraAdapter: CameraAdapter;
+  productCodeScannerAdapter: ProductCodeScannerAdapter;
   clock: Clock;
   logger: Logger;
 }
@@ -150,6 +151,7 @@ export interface SanilApiClient {
   login(request: LoginRequest): Promise<CurrentUser>;
   getCurrentUser(): Promise<CurrentUser>;
   listProducts(): Promise<ProductSummary[]>;
+  findProductByCode(productCode: string): Promise<ProductSummary>;
   listReferenceShots(productUuid: Uuid): Promise<ReferenceShot[]>;
   createReferenceShot(request: CreateReferenceShotRequest): Promise<ReferenceShot>;
   updateReferenceGuideShape(request: UpdateReferenceGuideShapeRequest): Promise<ReferenceShot>;
@@ -183,6 +185,7 @@ export interface SanilApiClient {
 | `login` | `LoginRequest` | `CurrentUser` | HTTP는 서버 세션 또는 쿠키 정책을 따른다. mock은 생성된 mock client 내부 인증 상태만 바꾼다. | `auth`, `validation`, `network`, `server` | current user 전역 객체 저장, 임의 관리자 승격 |
 | `getCurrentUser` | 없음 | `CurrentUser` | 없음 | `auth`, `permission`, `network`, `server` | 인증 실패를 anonymous user로 대체 |
 | `listProducts` | 없음 | `ProductSummary[]` | 없음 | `auth`, `permission`, `network`, `server` | `referenceCount` 임의 계산 |
+| `findProductByCode` | 제품 코드 문자열 | `ProductSummary` | 없음 | `validation`, `not_found`, `network`, `server` | 스캔 문자열을 화면에서 임의 제품으로 보정 |
 | `listReferenceShots` | `productUuid` | `ReferenceShot[]` | 없음 | `validation`, `not_found`, `network`, `server` | image 또는 guideShape 누락을 임의 객체로 보정 |
 | `createReferenceShot` | `CreateReferenceShotRequest` | `ReferenceShot` | 이미지 업로드와 기준 사진 생성 | `validation`, `conflict`, `network`, `server` | 업로드 실패 후 성공 reference 반환 |
 | `updateReferenceGuideShape` | `UpdateReferenceGuideShapeRequest` | `ReferenceShot` | guide shape 저장 | `validation`, `not_found`, `conflict`, `network`, `server` | ratio 좌표를 pixel 좌표로 저장 |

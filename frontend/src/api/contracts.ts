@@ -195,6 +195,7 @@ export interface SanilApiClient {
   login(request: LoginRequest): Promise<CurrentUser>;
   getCurrentUser(): Promise<CurrentUser>;
   listProducts(): Promise<ProductSummary[]>;
+  findProductByCode(productCode: string): Promise<ProductSummary>;
   listReferenceShots(productUuid: Uuid): Promise<ReferenceShot[]>;
   createReferenceShot(request: CreateReferenceShotRequest): Promise<ReferenceShot>;
   updateReferenceGuideShape(request: UpdateReferenceGuideShapeRequest): Promise<ReferenceShot>;

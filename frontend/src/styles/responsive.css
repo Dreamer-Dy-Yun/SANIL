@@ -2,11 +2,22 @@
   .app-frame,
   .capture-grid,
   .reference-workspace,
+  .selection-body,
+  .selection-body--scan,
   .reference-row,
   .result-item,
   .result-images,
   .history-row {
     grid-template-columns: 1fr;
+  }
+
+  .selection-mode {
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .scan-result {
+    display: grid;
   }
 
   .app-sidebar {

@@ -14,6 +14,7 @@ export function createHttpSanilApiClient(_options: CreateHttpSanilApiClientOptio
     login: unavailable,
     getCurrentUser: unavailable,
     listProducts: unavailable,
+    findProductByCode: unavailable,
     listReferenceShots: unavailable,
     createReferenceShot: unavailable,
     updateReferenceGuideShape: unavailable,

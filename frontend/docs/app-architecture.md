@@ -56,6 +56,7 @@ src/
 | `api/mock/fixtures/` | mock 원천 데이터 |
 | `features/*/` | 화면 단위 비즈니스 UI와 feature-local hook |
 | `shared/camera/` | browser camera adapter interface와 구현 |
+| `shared/scanner/` | 바코드/QR 촬영 및 제품 코드 디코딩 adapter interface와 구현 |
 | `shared/imaging/` | ratio 좌표 변환, overlay 렌더링 보조 함수 |
 | `shared/components/` | 도메인 비의존 UI |
 
@@ -64,7 +65,7 @@ src/
 | Feature | 책임 |
 |---|---|
 | `auth` | 로그인, 현재 사용자, 권한 표시 |
-| `products` | 제품 목록 조회와 제품 선택 |
+| `products` | 드롭다운 또는 바코드/QR 촬영 기반 제품 선택 |
 | `reference-management` | 기준 사진 목록, 등록, 순서 관리 |
 | `reference-guide` | 기준 사진 guide shape 표시/편집 |
 | `inspection-session` | 검사 세션 생성과 전체 상태 조회 |
@@ -75,7 +76,7 @@ src/
 
 ## 의존성 주입 기준
 
-- feature는 API client, camera adapter, clock, uuid generator, logger를 직접 생성하지 않는다.
+- feature는 API client, camera adapter, scanner adapter, clock, uuid generator, logger를 직접 생성하지 않는다.
 - `src/app/compositionRoot.ts`에서 실제 구현 또는 mock 구현을 조립한다.
 - React context는 조립된 dependency 전달 용도로만 쓴다.
 - 전역 mutable object나 service locator를 만들지 않는다.
@@ -85,8 +86,8 @@ src/
 
 | 패턴 | 적용 위치 |
 |---|---|
-| Factory | `createSanilApiClient`, `createCameraAdapter`, `createFrontendServices` |
-| Adapter | HTTP/mock API, browser camera, image upload |
+| Factory | `createSanilApiClient`, `createCameraAdapter`, `createProductCodeScannerAdapter`, `createFrontendServices` |
+| Adapter | HTTP/mock API, browser camera, barcode/QR scanner, image upload |
 | Strategy | guide shape 렌더링 방식, 결과 표시 방식 |
 | Repository-like client | API 계약 단위 client |
 | State Machine | capture step UI 상태 전이 |
@@ -96,8 +97,7 @@ src/
 | Route | 화면 |
 |---|---|
 | `/login` | 로그인 |
-| `/products` | 제품 선택 |
-| `/products/:productUuid/references` | 기준 사진 목록 |
+| `/products` | 제품 선택: 드롭다운 또는 바코드/QR 촬영 |
 | `/products/:productUuid/references` | 기준 사진 목록과 인라인 등록 |
 | 후속 | guide shape 편집 |
 | `/inspections/new?productUuid=` | 검사 시작 |
