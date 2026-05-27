@@ -42,7 +42,11 @@ export function CapturePage() {
 
   const capture = async () => {
     setError(null);
-    setCaptured(await cameraAdapter.captureFrame());
+    try {
+      setCaptured(await cameraAdapter.captureFrame());
+    } catch (nextError) {
+      setError(nextError);
+    }
   };
 
   const confirm = async () => {
@@ -68,41 +72,52 @@ export function CapturePage() {
   if (error) return <ErrorState error={error} />;
   if (!session || !step) return <LoadingState label="촬영 단계를 준비하는 중" />;
 
-  return (
-    <section className="capture-page">
-      <header className="page-header">
-        <div>
-          <span className="eyebrow">Inspection Capture</span>
-          <h1>{step.reference.name}</h1>
-        </div>
-        <span className="step-pill">
-          {stepNumber} / {session.totalSteps}
-        </span>
-      </header>
+  const previewUrl = captured?.previewUrl ?? step.reference.image?.imageUrl ?? null;
+  const captureStateLabel = captured ? "촬영 이미지 확인 중" : "촬영 대기";
+  const captureStateDetail = captured
+    ? "확정하면 다음 촬영 단계로 이동합니다."
+    : "기준 위치와 동일한 구도로 맞춘 뒤 촬영합니다.";
 
-      <div className="capture-grid">
-        <section className="capture-preview">
-          <div className="capture-instruction-bar">
-            <strong>촬영 지시</strong>
-            <span>{step.reference.remarks}</span>
+  return (
+    <section className="capture-page" aria-label="검사 촬영">
+      <section className="capture-stage" aria-live="polite">
+        <div className="capture-instruction-bar">
+          <div>
+            <span className="eyebrow">촬영 {stepNumber} / {session.totalSteps}</span>
+            <strong>{step.reference.name}</strong>
           </div>
-          <img
-            src={captured?.previewUrl ?? step.reference.image?.imageUrl}
-            alt={captured ? "촬영 미리보기" : "기준 사진"}
-          />
-          <GuideOverlay guideShape={step.reference.guideShape} />
-          <div className="capture-action-bar">
+          <span>{step.reference.remarks ?? "지정된 기준 위치에 맞춰 촬영합니다."}</span>
+        </div>
+
+        {previewUrl ? (
+          <img className="capture-stage__image" src={previewUrl} alt={captured ? "촬영 미리보기" : "기준 사진"} />
+        ) : (
+          <div className="capture-empty">기준 사진 없음</div>
+        )}
+        <GuideOverlay guideShape={step.reference.guideShape} />
+
+        <div className="capture-action-bar">
+          <div className="capture-state">
+            <strong>{captureStateLabel}</strong>
+            <span>{captureStateDetail}</span>
+          </div>
+          <div className="capture-action-buttons">
             <button type="button" onClick={() => void capture()} className="secondary-button">
-              {captured ? <RotateCcw size={18} /> : <Camera size={18} />}
+              {captured ? <RotateCcw size={20} /> : <Camera size={20} />}
               {captured ? "재촬영" : "촬영"}
             </button>
-            <button type="button" onClick={() => void confirm()} className="primary-button" disabled={!captured || isConfirming}>
-              <Check size={18} />
+            <button
+              type="button"
+              onClick={() => void confirm()}
+              className="primary-button"
+              disabled={!captured || isConfirming}
+            >
+              <Check size={20} />
               {isConfirming ? "확정 중" : "촬영 확정"}
             </button>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </section>
   );
 }

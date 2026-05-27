@@ -1,26 +1,91 @@
-.product-selection-panel {
-  display: grid;
+.product-operator-section {
+  min-height: calc(100vh - 132px);
+}
+
+.product-operator-header {
+  align-items: center;
   gap: 16px;
-  width: min(920px, 100%);
-  padding: 18px;
+}
+
+.operator-product-state {
+  display: grid;
+  gap: 3px;
+  min-width: 132px;
+  margin-left: auto;
+  justify-items: end;
+  color: #52675c;
+  font-weight: 800;
+}
+
+.operator-product-state strong {
+  color: #1b2a23;
+  font-size: 20px;
+}
+
+.product-selection-panel.operator-product-panel {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  gap: 14px;
+  width: min(1180px, 100%);
+  padding: 16px;
   border: 1px solid #d5ddd6;
   border-radius: 8px;
   background: #ffffff;
 }
 
-.selection-body {
-  display: block;
+.selection-body.operator-selection-strip {
+  display: grid;
+  grid-template-columns: minmax(320px, 1.1fr) minmax(280px, 0.9fr);
+  gap: 14px;
+  align-items: stretch;
 }
 
-.selection-body label {
+.operator-product-select {
   display: grid;
   gap: 8px;
+  min-width: 0;
   font-weight: 800;
+}
+
+.operator-product-select select {
+  min-height: 58px;
+  padding: 0 14px;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.operator-selected-product {
+  display: grid;
+  gap: 4px;
+  align-content: center;
+  min-width: 0;
+  padding: 10px 14px;
+  border: 1px solid #d5ddd6;
+  border-radius: 8px;
+  color: #52675c;
+  background: #f7faf7;
+}
+
+.operator-selected-product span,
+.operator-selected-product small {
+  font-weight: 800;
+}
+
+.operator-selected-product strong {
+  overflow: hidden;
+  color: #1b2a23;
+  font-size: 18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .scanner-camera-panel {
   display: grid;
   gap: 10px;
+}
+
+.operator-scanner-panel {
+  min-height: 0;
 }
 
 .scanner-camera-toolbar {
@@ -29,6 +94,16 @@
   justify-content: space-between;
   gap: 12px;
   color: #52675c;
+}
+
+.scanner-camera-toolbar div {
+  display: grid;
+  gap: 2px;
+}
+
+.scanner-camera-toolbar div span {
+  font-size: 12px;
+  text-transform: uppercase;
 }
 
 .scanner-camera-toolbar strong {
@@ -53,6 +128,18 @@
   background-size: 48px 48px, 48px 48px, auto;
 }
 
+.operator-product-panel .scanner-viewport {
+  height: min(360px, calc(100vh - 430px));
+  min-height: 280px;
+}
+
+.scanner-viewport::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(12, 26, 20, 0.08), rgba(12, 26, 20, 0.28));
+  content: "";
+}
+
 .scanner-viewport img {
   position: absolute;
   inset: 0;
@@ -65,6 +152,7 @@
 .scanner-reticle {
   position: absolute;
   inset: 14%;
+  z-index: 1;
   border: 1px solid rgba(215, 242, 223, 0.34);
 }
 
@@ -100,6 +188,37 @@
   border-width: 0 0 4px 4px;
 }
 
+.scanner-surface-copy {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  z-index: 1;
+  display: grid;
+  gap: 2px;
+  max-width: min(320px, calc(100% - 36px));
+  padding: 10px 12px;
+  border: 1px solid rgba(215, 242, 223, 0.24);
+  border-radius: 8px;
+  color: #f5f8f3;
+  background: rgba(18, 35, 28, 0.74);
+}
+
+.scanner-surface-copy strong,
+.scanner-surface-copy span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scanner-surface-copy strong {
+  font-size: 18px;
+}
+
+.scanner-surface-copy span {
+  color: #d8e2dc;
+  font-weight: 800;
+}
+
 .product-action-bar {
   display: flex;
   align-items: center;
@@ -107,9 +226,27 @@
   gap: 10px;
 }
 
+.product-action-bar.operator-action-bar {
+  justify-content: space-between;
+}
+
 .product-action-bar .primary-button,
 .product-action-bar .secondary-button {
   min-width: 132px;
+}
+
+.operator-action-bar .primary-button,
+.operator-action-bar .secondary-button {
+  min-height: 58px;
+  font-size: 17px;
+}
+
+.operator-action-bar .secondary-button {
+  flex: 0 0 190px;
+}
+
+.operator-action-bar .primary-button {
+  flex: 0 0 240px;
 }
 
 .selection-summary {
@@ -128,4 +265,25 @@
   text-decoration: none;
   font-weight: 800;
   color: #23614a;
+}
+
+@media (max-width: 960px) {
+  .selection-body.operator-selection-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .product-action-bar.operator-action-bar {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .operator-action-bar .primary-button,
+  .operator-action-bar .secondary-button {
+    width: 100%;
+  }
+
+  .operator-product-panel .scanner-viewport {
+    min-height: 300px;
+    aspect-ratio: auto;
+  }
 }

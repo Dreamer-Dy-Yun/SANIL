@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 import { useFrontendServices } from "../../app/serviceContext";
 import { toApiError } from "../../api/errors";
 import { ErrorState } from "../../shared/components/ErrorState";
@@ -48,7 +48,7 @@ export function AdminReferenceManagementPage() {
       .catch(setLoadError);
   }, [apiClient, selectedProductUuid]);
 
-  const submitReference = async (event: React.FormEvent<HTMLFormElement>) => {
+  const submitReference = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitError(null);
 
@@ -93,15 +93,16 @@ export function AdminReferenceManagementPage() {
     <section className="page-section">
       <header className="page-header">
         <div>
-          <span className="eyebrow">Admin</span>
-          <h1>기준 사진 관리</h1>
+          <span className="eyebrow">Admin Reference Editing</span>
+          <h1>관리자 기준 사진 편집</h1>
+          <p>기준 사진 등록과 순서 관리는 관리자 영역입니다. 작업자 촬영 화면은 이 기준을 조회만 합니다.</p>
         </div>
       </header>
       <div className="reference-workspace">
         <form className="reference-form" onSubmit={submitReference}>
-          <h2>기준 사진 등록</h2>
+          <h2>관리자 등록 패널</h2>
           <label>
-            제품
+            관리 대상 제품
             <select value={selectedProductUuid} onChange={(event) => setSelectedProductUuid(event.target.value)}>
               {products.map((product) => (
                 <option key={product.productUuid} value={product.productUuid}>
@@ -111,7 +112,7 @@ export function AdminReferenceManagementPage() {
             </select>
           </label>
           <label>
-            촬영 순서
+            검사 단계 순서
             <input min="1" step="1" type="number" value={stepOrder} onChange={(event) => setStepOrder(event.target.value)} />
           </label>
           <label>
@@ -126,14 +127,24 @@ export function AdminReferenceManagementPage() {
             이미지 파일
             <input accept="image/*" type="file" onChange={(event) => setImageFile(event.target.files?.item(0) ?? null)} />
           </label>
-          {selectedProduct ? <p className="selection-summary">선택 제품: {selectedProduct.code}</p> : null}
+          {selectedProduct ? (
+            <p className="selection-summary">
+              관리 대상: {selectedProduct.code}
+              {selectedProduct.name ? ` · ${selectedProduct.name}` : ""}
+            </p>
+          ) : null}
           {submitError ? <p className="form-message form-message--error">{submitError}</p> : null}
           <button className="primary-button" disabled={isSubmitting} type="submit">
-            {isSubmitting ? "등록 중" : "기준 사진 등록"}
+            {isSubmitting ? "등록 중" : "관리자 기준 사진 등록"}
           </button>
         </form>
         {references ? (
-          <ReferenceShotList references={references} emptyLabel="이 제품에는 등록된 기준 사진이 없습니다." />
+          <ReferenceShotList
+            references={references}
+            emptyLabel="이 제품에는 등록된 기준 사진이 없습니다."
+            listLabel="관리자 기준 사진 편집 목록"
+            contextLabel="관리자 기준"
+          />
         ) : (
           <LoadingState label="기준 사진을 불러오는 중" />
         )}

@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useFrontendServices } from "../../app/serviceContext";
@@ -19,26 +20,34 @@ export function HistoryPage() {
   if (!items) return <LoadingState label="검사 이력을 불러오는 중" />;
 
   return (
-    <section className="page-section">
-      <header className="page-header">
+    <section className="page-section inspection-operator-page">
+      <header className="inspection-operator-header">
         <div>
-          <span className="eyebrow">History</span>
+          <span className="eyebrow">Inspection History</span>
           <h1>검사 이력</h1>
+          <p>최근 검사 세션의 최종 결과와 촬영 진행 상태를 확인합니다.</p>
         </div>
       </header>
+
       <div className="history-table">
         {items.map((item) => (
           <article className="history-row" key={item.inspectionSessionUuid}>
-            <div>
+            <div className="history-row__main">
               <strong>{item.productCode}</strong>
-              <span>{item.productName}</span>
+              <span>{item.productName ?? "제품명 없음"}</span>
             </div>
-            <StatusBadge status={item.status} />
-            <span>
-              {item.capturedSteps} / {item.totalSteps}
-            </span>
-            <time>{new Date(item.updatedAt).toLocaleString("ko-KR")}</time>
-            <Link to={`/inspections/${item.inspectionSessionUuid}/result`}>상세</Link>
+            <div className="history-row__meta">
+              <StatusBadge status={item.status} />
+              <span>
+                촬영 {item.capturedSteps} / {item.totalSteps}
+              </span>
+              <span>{item.round}회차</span>
+              <time>{new Date(item.updatedAt).toLocaleString("ko-KR")}</time>
+            </div>
+            <Link className="secondary-button history-row__link" to={`/inspections/${item.inspectionSessionUuid}/result`}>
+              상세 보기
+              <ArrowRight size={18} />
+            </Link>
           </article>
         ))}
       </div>

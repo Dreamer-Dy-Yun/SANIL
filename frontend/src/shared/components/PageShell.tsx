@@ -1,6 +1,6 @@
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import type { CurrentUser } from "../../api/contracts";
 
 interface PageShellProps {
@@ -21,10 +21,20 @@ function BrandBlock() {
 
 export function PageShell({ user }: PageShellProps) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const location = useLocation();
   const closeDrawer = () => setIsDrawerOpen(false);
+  const isAdminRoute = location.pathname.startsWith("/admin");
+  const isCaptureRoute = location.pathname.includes("/capture/");
+  const frameClassName = [
+    "app-frame",
+    isAdminRoute ? "app-frame--admin" : "app-frame--operator",
+    isCaptureRoute ? "app-frame--capture" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <div className="app-frame">
+    <div className={frameClassName}>
       <header className="app-topbar">
         <button
           aria-label="메뉴 열기"
@@ -35,7 +45,10 @@ export function PageShell({ user }: PageShellProps) {
           <Menu size={22} />
         </button>
         <BrandBlock />
-        {user ? <span className="app-topbar__user">{user.name}</span> : null}
+        <div className="app-topbar__context">
+          <strong>{isAdminRoute ? "관리자" : isCaptureRoute ? "검사 촬영" : "작업자"}</strong>
+          {user ? <span>{user.name}</span> : null}
+        </div>
       </header>
 
       <aside className={isDrawerOpen ? "app-sidebar app-sidebar--open" : "app-sidebar"}>
@@ -73,7 +86,7 @@ export function PageShell({ user }: PageShellProps) {
 
       {isDrawerOpen ? <button aria-label="메뉴 닫기" className="drawer-backdrop" type="button" onClick={closeDrawer} /> : null}
 
-      <main className="app-main">
+      <main className={isCaptureRoute ? "app-main app-main--capture" : "app-main"}>
         <Outlet />
       </main>
     </div>

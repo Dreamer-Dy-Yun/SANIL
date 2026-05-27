@@ -1,21 +1,62 @@
 .app-frame {
-  display: grid;
-  grid-template-columns: 260px minmax(0, 1fr);
   min-height: 100vh;
+  background: #eef2ed;
 }
 
-.app-topbar,
-.drawer-backdrop {
-  display: none;
+.app-frame--capture {
+  background: #111f19;
+}
+
+.app-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 64px;
+  padding: 8px 20px;
+  color: #f6fbf4;
+  background: #13251d;
+  box-shadow: 0 2px 12px rgba(14, 28, 22, 0.18);
+}
+
+.app-frame--capture .app-topbar {
+  min-height: 54px;
+  background: #0d1a14;
+  box-shadow: none;
+}
+
+.app-topbar__context {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-left: auto;
+  color: #cfe2d5;
+}
+
+.app-topbar__context strong {
+  color: #ffffff;
 }
 
 .app-sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 40;
   display: flex;
   flex-direction: column;
   gap: 28px;
-  padding: 28px 22px;
+  width: min(340px, 88vw);
+  padding: 24px 22px;
   color: #f5f8f3;
-  background: #15231d;
+  background: #13251d;
+  box-shadow: 18px 0 36px rgba(0, 0, 0, 0.24);
+  transform: translateX(-105%);
+  transition: transform 180ms ease;
+}
+
+.app-sidebar--open {
+  transform: translateX(0);
 }
 
 .sidebar-header {
@@ -25,15 +66,37 @@
   gap: 12px;
 }
 
+.app-sidebar .sidebar-close {
+  display: inline-flex;
+}
+
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: block;
+  border: 0;
+  background: rgba(8, 18, 14, 0.48);
+}
+
 .app-main {
   min-width: 0;
-  padding: 32px;
+  padding: 22px;
+}
+
+.app-main--capture {
+  padding: 14px;
 }
 
 .page-section,
 .capture-page {
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1180px;
   margin: 0 auto;
+}
+
+.capture-page {
+  max-width: none;
 }
 
 .page-header {
@@ -41,13 +104,18 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 24px;
+  margin-bottom: 18px;
+}
+
+.app-frame--capture .page-header {
+  margin-bottom: 12px;
+  color: #f6fbf4;
 }
 
 .page-header h1 {
   margin: 4px 0 0;
   font-size: 30px;
-  line-height: 1.15;
+  line-height: 1.12;
 }
 
 .login-layout {
@@ -55,12 +123,12 @@
   min-height: 100vh;
   place-items: center;
   padding: 24px;
-  background: #15231d;
+  background: #13251d;
 }
 
 .login-panel {
-  width: min(420px, 100%);
-  padding: 28px;
+  width: min(440px, 100%);
+  padding: 30px;
   border-radius: 8px;
   background: #f6f8f4;
 }
@@ -86,11 +154,7 @@
   padding: 14px;
 }
 
-.capture-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-}
-
+.capture-grid,
 .login-form,
 .reference-form,
 .action-row,

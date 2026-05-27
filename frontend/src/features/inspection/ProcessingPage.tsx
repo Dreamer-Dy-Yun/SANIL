@@ -1,5 +1,5 @@
 import { ArrowRight, RefreshCw } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFrontendServices } from "../../app/serviceContext";
 import { ErrorState } from "../../shared/components/ErrorState";
@@ -14,7 +14,7 @@ export function ProcessingPage() {
   const [result, setResult] = useState<InspectionResultSummary | null>(null);
   const [error, setError] = useState<unknown>(null);
 
-  const load = () => {
+  const load = useCallback(() => {
     setError(null);
     Promise.all([apiClient.getInspectionSession(inspectionSessionUuid), apiClient.getInspectionResult(inspectionSessionUuid)])
       .then(([nextSession, nextResult]) => {
@@ -22,31 +22,53 @@ export function ProcessingPage() {
         setResult(nextResult);
       })
       .catch(setError);
-  };
+  }, [apiClient, inspectionSessionUuid]);
 
-  useEffect(load, [apiClient, inspectionSessionUuid]);
+  useEffect(load, [load]);
 
   if (error) return <ErrorState error={error} />;
   if (!session || !result) return <LoadingState label="비교 결과를 집계하는 중" />;
 
   return (
-    <section className="page-section">
-      <header className="page-header">
+    <section className="page-section inspection-operator-page">
+      <header className="inspection-operator-header">
         <div>
-          <span className="eyebrow">Processing</span>
-          <h1>모든 촬영이 완료되었습니다</h1>
+          <span className="eyebrow">Inspection Processing</span>
+          <h1>촬영본을 비교 처리 중입니다</h1>
+          <p>합부 판정은 최종 결과 화면에서만 확인합니다.</p>
         </div>
       </header>
-      <div className="summary-band">
-        <strong>{session.productCode}</strong>
-        <span>
-          {session.capturedSteps} / {session.totalSteps} 촬영 완료
-        </span>
-        <span>{result.items.length}개 비교 결과 준비</span>
+
+      <div className="operator-panel processing-panel">
+        <div className="processing-indicator" aria-hidden="true">
+          <RefreshCw size={42} />
+        </div>
+        <div>
+          <span className="operator-kicker">{session.productCode}</span>
+          <h2>검사 판정 확인 전 단계</h2>
+          <p>모든 촬영 단계가 저장되었고 비교 결과 데이터를 수신했습니다.</p>
+        </div>
+        <dl className="operator-metrics">
+          <div>
+            <dt>촬영</dt>
+            <dd>
+              {session.capturedSteps} / {session.totalSteps}
+            </dd>
+          </div>
+          <div>
+            <dt>비교 항목</dt>
+            <dd>{result.items.length}</dd>
+          </div>
+          <div>
+            <dt>회차</dt>
+            <dd>{session.round}</dd>
+          </div>
+        </dl>
       </div>
-      <div className="action-row">
+
+      <div className="operator-action-row">
         <button type="button" className="secondary-button" onClick={load}>
-          <RefreshCw size={18} />
+          <RefreshCw size={20} />
           새로고침
         </button>
         <button
@@ -54,7 +76,7 @@ export function ProcessingPage() {
           className="primary-button"
           onClick={() => navigate(`/inspections/${inspectionSessionUuid}/result`)}
         >
-          <ArrowRight size={18} />
+          <ArrowRight size={20} />
           최종 결과 보기
         </button>
       </div>

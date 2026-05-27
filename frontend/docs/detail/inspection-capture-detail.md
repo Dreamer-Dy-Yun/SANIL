@@ -13,8 +13,9 @@
 - 최종 합부 결과는 모든 필수 촬영이 끝난 뒤에만 표시한다.
 - 촬영 화면에서는 개별 판정, finding, `FindingJudge`를 노출하지 않는다.
 - `M86XE` 계열 태블릿을 1차 촬영 장비 제약으로 보되 OS, 브라우저, 카메라 세부 사양은 실기 확인 전 임의 확정하지 않는다.
+- 촬영 화면은 작업자 기본 앱의 태블릿 화면이며 관리자 기준 사진 관리 UI와 분리한다.
 - 촬영 지시와 촬영/확정 액션은 우측 보조 패널이 아니라 촬영 영역 내부의 상단/하단 바에 둔다.
-- 우측 기준 썸네일 패널은 1차 촬영 화면에서 제외한다.
+- 우측 기준 썸네일 패널, 좌측 고정 사이드바, 데스크톱형 보조 패널은 1차 촬영 화면에서 제외한다.
 
 ## 범위
 
@@ -84,6 +85,8 @@ createInspectionSession(productUuid: Uuid): Promise<InspectionSession>
 ## 단계형 촬영 흐름
 
 촬영 화면 route는 `/inspections/:inspectionSessionUuid/capture/:stepOrder`를 사용한다.
+
+이 route는 `/products`의 드롭다운 또는 바코드/QR 카메라 제품 선택 결과로 생성된 검사 세션에서 진입한다. 제품 카드 선택 결과나 관리자 기준 사진 등록 상태를 전제로 하지 않는다.
 
 1. route param에서 `inspectionSessionUuid`, `stepOrder`를 읽는다.
 2. `getInspectionSession(inspectionSessionUuid)`로 세션 상태를 조회한다.

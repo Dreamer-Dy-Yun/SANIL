@@ -1,8 +1,26 @@
 @media (max-width: 860px) {
-  .app-frame,
-  .capture-grid,
+  .app-topbar__context span,
+  .brand-block small {
+    display: none;
+  }
+
+  .app-main {
+    padding: 14px;
+  }
+
+  .app-main--capture {
+    padding: 8px;
+  }
+
+  .page-header {
+    align-items: flex-start;
+  }
+
+  .page-header h1 {
+    font-size: 22px;
+  }
+
   .reference-workspace,
-  .selection-body,
   .reference-row,
   .result-item,
   .result-images,
@@ -14,21 +32,11 @@
     display: grid;
   }
 
-  .scanner-viewport {
-    min-height: 300px;
-  }
-
   .product-action-bar .primary-button,
-  .product-action-bar .secondary-button {
+  .product-action-bar .secondary-button,
+  .capture-action-bar .primary-button,
+  .capture-action-bar .secondary-button {
     width: 100%;
-  }
-
-  .app-main {
-    padding: 18px;
-  }
-
-  .capture-preview {
-    min-height: 360px;
   }
 
   .capture-instruction-bar {
@@ -38,10 +46,5 @@
 
   .capture-action-bar {
     display: grid;
-  }
-
-  .capture-action-bar .primary-button,
-  .capture-action-bar .secondary-button {
-    width: 100%;
   }
 }

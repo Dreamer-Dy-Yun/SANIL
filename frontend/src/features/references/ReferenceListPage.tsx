@@ -23,11 +23,17 @@ export function ReferenceListPage() {
     <section className="page-section">
       <header className="page-header">
         <div>
-          <span className="eyebrow">Reference Shots</span>
-          <h1>기준 사진과 촬영 가이드</h1>
+          <span className="eyebrow">Operator Reference Lookup</span>
+          <h1>기준 사진 조회</h1>
+          <p>작업자는 등록된 기준 사진과 촬영 가이드만 확인합니다. 등록과 순서 관리는 관리자 화면에서 수행합니다.</p>
         </div>
       </header>
-      <ReferenceShotList references={references} emptyLabel="등록된 기준 사진이 없습니다." />
+      <ReferenceShotList
+        references={references}
+        emptyLabel="등록된 기준 사진이 없습니다."
+        listLabel="작업자 기준 사진 조회 목록"
+        contextLabel="조회 전용"
+      />
     </section>
   );
 }
