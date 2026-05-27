@@ -10,7 +10,7 @@
     grid-template-columns: 1fr;
   }
 
-  .selection-actions {
+  .product-action-bar {
     display: grid;
   }
 
@@ -18,8 +18,9 @@
     min-height: 300px;
   }
 
-  .scanner-control-bar {
-    justify-content: stretch;
+  .product-action-bar .primary-button,
+  .product-action-bar .secondary-button {
+    width: 100%;
   }
 
   .app-main {

@@ -111,17 +111,6 @@ export function ProductsPage() {
               ))}
             </select>
           </label>
-
-          <div className="selection-actions">
-            <button
-              className="primary-button"
-              disabled={isBusy || products.length === 0}
-              type="button"
-              onClick={() => void startSelectedInspection()}
-            >
-              {busyAction === "start" ? "시작 중" : "검사 시작"}
-            </button>
-          </div>
         </div>
 
         <div className="scanner-camera-panel" aria-label="바코드/QR 카메라">
@@ -137,13 +126,22 @@ export function ProductsPage() {
               <span />
               <span />
             </div>
-            <div className="scanner-control-bar">
-              <button className="primary-button" disabled={isBusy} type="button" onClick={() => void scanProductCode()}>
-                <QrCode size={18} />
-                {busyAction === "scan" ? "판독 중" : "코드 촬영"}
-              </button>
-            </div>
           </div>
+        </div>
+
+        <div className="product-action-bar">
+          <button className="secondary-button" disabled={isBusy} type="button" onClick={() => void scanProductCode()}>
+            <QrCode size={18} />
+            {busyAction === "scan" ? "판독 중" : "코드 촬영"}
+          </button>
+          <button
+            className="primary-button"
+            disabled={isBusy || !selectedProductUuid}
+            type="button"
+            onClick={() => void startSelectedInspection()}
+          >
+            {busyAction === "start" ? "시작 중" : "검사 시작"}
+          </button>
         </div>
 
         {selectedProduct ? (

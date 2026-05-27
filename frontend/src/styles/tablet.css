@@ -83,7 +83,7 @@
   }
 
   .selection-body {
-    grid-template-columns: minmax(360px, 1fr) max-content;
+    display: block;
   }
 
   .scanner-viewport {
