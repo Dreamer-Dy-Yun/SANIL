@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="960" viewBox="0 0 1280 960">
+  <rect width="1280" height="960" fill="#22352f"/>
+  <rect x="230" y="140" width="820" height="670" rx="30" fill="#d9ddd7"/>
+  <rect x="340" y="270" width="600" height="420" rx="18" fill="#f0f2ec"/>
+  <rect x="410" y="340" width="460" height="250" rx="16" fill="#c7cec7"/>
+  <g fill="#5c6b62">
+    <circle cx="490" cy="420" r="34"/><circle cx="640" cy="420" r="34"/><circle cx="790" cy="420" r="34"/>
+    <circle cx="490" cy="520" r="34"/><circle cx="640" cy="520" r="34"/><circle cx="790" cy="520" r="34"/>
+  </g>
+  <text x="640" y="860" text-anchor="middle" font-family="Arial" font-size="42" fill="#f3f6f0">REFERENCE TERMINAL</text>
+</svg>

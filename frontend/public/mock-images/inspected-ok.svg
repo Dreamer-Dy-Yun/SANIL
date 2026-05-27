@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="960" viewBox="0 0 1280 960">
+  <rect width="1280" height="960" fill="#24352f"/>
+  <rect x="160" y="145" width="960" height="645" rx="34" fill="#dce1da"/>
+  <rect x="250" y="235" width="780" height="460" rx="18" fill="#f1f4ee"/>
+  <circle cx="340" cy="340" r="58" fill="#5a685f"/>
+  <circle cx="940" cy="340" r="58" fill="#5a685f"/>
+  <circle cx="340" cy="600" r="58" fill="#5a685f"/>
+  <circle cx="940" cy="600" r="58" fill="#5a685f"/>
+  <text x="640" y="860" text-anchor="middle" font-family="Arial" font-size="42" fill="#f3f6f0">INSPECTED OK</text>
+</svg>

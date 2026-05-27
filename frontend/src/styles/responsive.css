@@ -1,0 +1,31 @@
+@media (max-width: 860px) {
+  .app-frame,
+  .capture-grid,
+  .reference-workspace,
+  .reference-row,
+  .result-item,
+  .result-images,
+  .history-row {
+    grid-template-columns: 1fr;
+  }
+
+  .app-sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding: 14px 18px;
+  }
+
+  .main-nav,
+  .user-block {
+    display: none;
+  }
+
+  .app-main {
+    padding: 18px;
+  }
+
+  .capture-preview {
+    min-height: 360px;
+  }
+}

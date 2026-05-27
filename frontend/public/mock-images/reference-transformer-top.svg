@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="960" viewBox="0 0 1280 960">
+  <rect width="1280" height="960" fill="#26352d"/>
+  <rect x="150" y="140" width="980" height="650" rx="36" fill="#d8ddd6"/>
+  <rect x="240" y="230" width="800" height="470" rx="18" fill="#f0f2ec"/>
+  <circle cx="330" cy="330" r="62" fill="#556258"/>
+  <circle cx="950" cy="330" r="62" fill="#556258"/>
+  <circle cx="330" cy="610" r="62" fill="#556258"/>
+  <circle cx="950" cy="610" r="62" fill="#556258"/>
+  <rect x="520" y="420" width="240" height="110" rx="16" fill="#aeb8ae"/>
+  <text x="640" y="860" text-anchor="middle" font-family="Arial" font-size="42" fill="#f3f6f0">REFERENCE TOP</text>
+</svg>

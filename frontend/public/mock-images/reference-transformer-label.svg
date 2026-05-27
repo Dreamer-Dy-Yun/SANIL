@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="960" viewBox="0 0 1280 960">
+  <rect width="1280" height="960" fill="#24342d"/>
+  <rect x="190" y="155" width="900" height="650" rx="34" fill="#d9ded8"/>
+  <rect x="400" y="330" width="480" height="220" rx="18" fill="#f7f2dc" stroke="#5e665c" stroke-width="14"/>
+  <text x="640" y="425" text-anchor="middle" font-family="Arial" font-size="52" fill="#26352d">SANIL</text>
+  <text x="640" y="495" text-anchor="middle" font-family="Arial" font-size="34" fill="#26352d">TR-100 QA</text>
+  <text x="640" y="860" text-anchor="middle" font-family="Arial" font-size="42" fill="#f3f6f0">REFERENCE LABEL</text>
+</svg>

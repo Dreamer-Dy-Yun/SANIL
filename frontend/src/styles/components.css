@@ -1,0 +1,294 @@
+.brand-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-block strong,
+.brand-block small,
+.user-block span,
+.user-block small {
+  display: block;
+}
+
+.brand-block small,
+.user-block small {
+  color: #b9c6bd;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  font-weight: 800;
+  color: #14221d;
+  background: #d7f2df;
+}
+
+.brand-block--large .brand-mark {
+  width: 56px;
+  height: 56px;
+  font-size: 24px;
+}
+
+.main-nav {
+  display: grid;
+  gap: 8px;
+}
+
+.main-nav a {
+  padding: 11px 12px;
+  border-radius: 7px;
+  text-decoration: none;
+  color: #d8e2dc;
+}
+
+.main-nav a.active,
+.main-nav a:hover {
+  color: #ffffff;
+  background: #263b31;
+}
+
+.user-block {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid #34473d;
+}
+
+.eyebrow {
+  color: #60746a;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.primary-button,
+.secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  border: 0;
+  border-radius: 7px;
+  padding: 0 16px;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.primary-button {
+  color: #ffffff;
+  background: #23614a;
+}
+
+.secondary-button {
+  color: #1b2a23;
+  background: #dce4dd;
+}
+
+.primary-button:disabled,
+.secondary-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.product-card,
+.reference-form,
+.reference-row,
+.result-item,
+.history-row,
+.summary-band,
+.state-panel {
+  border: 1px solid #d5ddd6;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.product-card {
+  display: grid;
+  gap: 16px;
+  padding: 18px;
+}
+
+.reference-form {
+  position: sticky;
+  top: 24px;
+  padding: 18px;
+}
+
+.reference-form h2 {
+  margin: 0;
+  font-size: 19px;
+}
+
+.form-message {
+  margin: 0;
+  font-weight: 700;
+}
+
+.form-message--error {
+  color: #8d2d23;
+}
+
+.product-card h2,
+.reference-row h2,
+.result-copy h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.product-card p,
+.reference-row p,
+.result-copy p {
+  margin: 6px 0;
+  color: #475a50;
+}
+
+.product-card__icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 7px;
+  background: #e4efe7;
+}
+
+.product-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #60746a;
+}
+
+.product-card__meta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.reference-thumb,
+.capture-preview,
+.result-inspected {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #21332b;
+}
+
+.reference-thumb,
+figure img,
+.result-inspected {
+  aspect-ratio: 4 / 3;
+}
+
+.reference-thumb img,
+.capture-preview img,
+.result-images img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reference-thumb--side {
+  width: 100%;
+}
+
+.capture-preview {
+  min-height: 560px;
+}
+
+.guide-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.guide-overlay rect,
+.guide-overlay line,
+.guide-overlay polygon {
+  fill: rgba(80, 190, 118, 0.14);
+  stroke: #50be76;
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+}
+
+.step-pill,
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+  min-height: 28px;
+  border-radius: 999px;
+  padding: 0 10px;
+  font-weight: 800;
+}
+
+.step-pill {
+  color: #214333;
+  background: #d9eadf;
+}
+
+.summary-band {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 18px;
+}
+
+.finding {
+  gap: 8px;
+  padding: 12px;
+  border-radius: 7px;
+  background: #fff4e2;
+}
+
+.history-row span,
+.history-row time {
+  color: #5c6e65;
+}
+
+.status-badge {
+  font-size: 13px;
+}
+
+.status-badge--success {
+  color: #17603f;
+  background: #dff2e6;
+}
+
+.status-badge--warning {
+  color: #75510a;
+  background: #fff0c8;
+}
+
+.status-badge--danger {
+  color: #8d2d23;
+  background: #ffe0dc;
+}
+
+.status-badge--neutral,
+.status-badge--progress {
+  color: #35443d;
+  background: #e4ebe5;
+}
+
+.state-panel {
+  display: grid;
+  gap: 6px;
+  padding: 18px;
+}
+
+.state-panel--error {
+  border-color: #e2aaa1;
+  color: #7a2e25;
+  background: #fff0ee;
+}
