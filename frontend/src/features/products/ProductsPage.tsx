@@ -149,7 +149,10 @@ export function ProductsPage() {
       </div>
       <div className="product-grid">
         {products.map((product) => (
-          <article className="product-card" key={product.productUuid}>
+          <article
+            className={product.productUuid === selectedProductUuid ? "product-card product-card--selected" : "product-card"}
+            key={product.productUuid}
+          >
             <div className="product-card__icon">
               <ClipboardCheck size={24} />
             </div>
@@ -167,11 +170,15 @@ export function ProductsPage() {
             </div>
             <button
               type="button"
-              className="primary-button"
+              className="secondary-button"
               disabled={isBusy}
-              onClick={() => void startInspection(product.productUuid)}
+              onClick={() => {
+                setSelectionMode("dropdown");
+                setSelectedProductUuid(product.productUuid);
+                setActionMessage(null);
+              }}
             >
-              검사 시작
+              선택
             </button>
           </article>
         ))}

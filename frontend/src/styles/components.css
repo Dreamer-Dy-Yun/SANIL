@@ -113,6 +113,11 @@
   padding: 18px;
 }
 
+.product-card--selected {
+  border-color: #23614a;
+  box-shadow: inset 0 0 0 1px #23614a;
+}
+
 .reference-form {
   position: sticky;
   top: 24px;

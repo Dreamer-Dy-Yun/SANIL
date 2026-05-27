@@ -1,0 +1,163 @@
+@media (max-width: 1366px) and (max-height: 900px) and (orientation: landscape) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .app-frame {
+    grid-template-columns: 1fr;
+    grid-template-rows: 58px minmax(0, 1fr);
+  }
+
+  .app-sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    min-height: 58px;
+    padding: 8px 16px;
+  }
+
+  .brand-block {
+    min-width: 190px;
+  }
+
+  .brand-mark {
+    width: 40px;
+    height: 40px;
+  }
+
+  .main-nav {
+    display: flex;
+    gap: 6px;
+  }
+
+  .main-nav a {
+    min-height: 40px;
+    padding: 10px 14px;
+  }
+
+  .user-block {
+    margin-top: 0;
+    margin-left: auto;
+    padding-top: 0;
+    padding-left: 16px;
+    border-top: 0;
+    border-left: 1px solid #34473d;
+  }
+
+  .app-main {
+    padding: 18px 20px 20px;
+  }
+
+  .page-section,
+  .capture-page {
+    width: 100%;
+    max-width: none;
+  }
+
+  .page-header {
+    min-height: 52px;
+    margin-bottom: 14px;
+  }
+
+  .page-header h1 {
+    font-size: 24px;
+  }
+
+  .product-selection-panel {
+    grid-template-columns: max-content minmax(0, 1fr);
+    align-items: end;
+    gap: 12px 16px;
+    margin-bottom: 14px;
+    padding: 14px;
+  }
+
+  .selection-mode {
+    grid-row: span 2;
+    grid-template-columns: 1fr;
+    width: 176px;
+  }
+
+  .selection-body {
+    grid-template-columns: minmax(300px, 1fr) 150px;
+  }
+
+  .selection-body--scan {
+    grid-template-columns: 180px minmax(0, 1fr);
+  }
+
+  .selection-summary,
+  .form-message {
+    grid-column: 2;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .product-card {
+    grid-template-columns: 44px minmax(0, 1fr) 128px;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .product-card__meta,
+  .product-card .secondary-button {
+    grid-column: 3;
+  }
+
+  .product-card h2 {
+    font-size: 18px;
+  }
+
+  .capture-grid {
+    grid-template-columns: minmax(0, 1fr) 292px;
+    gap: 14px;
+  }
+
+  .capture-preview {
+    height: min(620px, calc(100vh - 160px));
+    min-height: 500px;
+  }
+
+  .capture-side {
+    gap: 12px;
+  }
+
+  .capture-side h2 {
+    margin: 0;
+    font-size: 18px;
+  }
+
+  .capture-side p {
+    margin: 6px 0 0;
+  }
+
+  .capture-actions {
+    gap: 10px;
+  }
+
+  .primary-button,
+  .secondary-button,
+  input,
+  select {
+    min-height: 48px;
+  }
+
+  .reference-workspace {
+    grid-template-columns: 300px minmax(0, 1fr);
+  }
+
+  .reference-row {
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .history-row {
+    grid-template-columns: minmax(210px, 1fr) 118px 72px 160px 54px;
+  }
+}
