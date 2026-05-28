@@ -56,6 +56,14 @@ export function ProductsPage() {
   const selectedProduct = products?.find((product) => product.productUuid === selectedProductUuid) ?? null;
   const selectedProductLabel = selectedProduct ? formatProductLabel(selectedProduct) : "선택된 제품 없음";
   const scanStatusLabel = lastScanResult ? formatScanFormat(lastScanResult.format) : "Barcode/QR";
+  const primaryActionLabel = selectedProduct
+    ? busyAction === "start"
+      ? "시작 중"
+      : "검사 시작"
+    : busyAction === "scan"
+      ? "판독 중"
+      : "코드 촬영";
+  const PrimaryActionIcon = selectedProduct ? Play : QrCode;
 
   const startSelectedInspection = async () => {
     if (!selectedProduct) {
@@ -103,6 +111,15 @@ export function ProductsPage() {
     } finally {
       setBusyAction(null);
     }
+  };
+
+  const runPrimaryAction = async () => {
+    if (selectedProduct) {
+      await startSelectedInspection();
+      return;
+    }
+
+    await scanProductCode();
   };
 
   if (error) return <ErrorState error={error} />;
@@ -174,18 +191,9 @@ export function ProductsPage() {
         </div>
 
         <div className="product-action-bar operator-action-bar">
-          <button className="secondary-button" disabled={isBusy} type="button" onClick={() => void scanProductCode()}>
-            <QrCode size={18} />
-            {busyAction === "scan" ? "판독 중" : "코드 촬영"}
-          </button>
-          <button
-            className="primary-button"
-            disabled={isBusy || !selectedProduct}
-            type="button"
-            onClick={() => void startSelectedInspection()}
-          >
-            <Play size={18} />
-            {busyAction === "start" ? "시작 중" : "검사 시작"}
+          <button className="primary-button operator-primary-action" disabled={isBusy} type="button" onClick={() => void runPrimaryAction()}>
+            <PrimaryActionIcon size={22} />
+            {primaryActionLabel}
           </button>
         </div>
 

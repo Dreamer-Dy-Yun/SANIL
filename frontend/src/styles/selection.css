@@ -25,9 +25,9 @@
 .product-selection-panel.operator-product-panel {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto auto;
-  gap: 14px;
+  gap: 18px;
   width: min(1180px, 100%);
-  padding: 16px;
+  padding: 20px;
   border: 1px solid #d5ddd6;
   border-radius: 8px;
   background: #ffffff;
@@ -36,30 +36,31 @@
 .selection-body.operator-selection-strip {
   display: grid;
   grid-template-columns: minmax(320px, 1.1fr) minmax(280px, 0.9fr);
-  gap: 14px;
+  gap: 18px;
   align-items: stretch;
 }
 
 .operator-product-select {
   display: grid;
-  gap: 8px;
+  gap: 10px;
   min-width: 0;
   font-weight: 800;
 }
 
 .operator-product-select select {
-  min-height: 58px;
-  padding: 0 14px;
-  font-size: 17px;
+  min-height: 74px;
+  padding: 0 18px;
+  font-size: 20px;
   font-weight: 800;
 }
 
 .operator-selected-product {
   display: grid;
-  gap: 4px;
+  gap: 6px;
   align-content: center;
+  min-height: 104px;
   min-width: 0;
-  padding: 10px 14px;
+  padding: 14px 18px;
   border: 1px solid #d5ddd6;
   border-radius: 8px;
   color: #52675c;
@@ -74,7 +75,7 @@
 .operator-selected-product strong {
   overflow: hidden;
   color: #1b2a23;
-  font-size: 18px;
+  font-size: 22px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -94,6 +95,7 @@
   justify-content: space-between;
   gap: 12px;
   color: #52675c;
+  font-size: 16px;
 }
 
 .scanner-camera-toolbar div {
@@ -102,7 +104,7 @@
 }
 
 .scanner-camera-toolbar div span {
-  font-size: 12px;
+  font-size: 13px;
   text-transform: uppercase;
 }
 
@@ -129,8 +131,8 @@
 }
 
 .operator-product-panel .scanner-viewport {
-  height: min(360px, calc(100vh - 430px));
-  min-height: 280px;
+  height: clamp(300px, calc(100vh - 482px), 380px);
+  min-height: 300px;
 }
 
 .scanner-viewport::after {
@@ -227,7 +229,7 @@
 }
 
 .product-action-bar.operator-action-bar {
-  justify-content: space-between;
+  justify-content: stretch;
 }
 
 .product-action-bar .primary-button,
@@ -237,16 +239,12 @@
 
 .operator-action-bar .primary-button,
 .operator-action-bar .secondary-button {
-  min-height: 58px;
-  font-size: 17px;
+  min-height: 74px;
+  font-size: 20px;
 }
 
-.operator-action-bar .secondary-button {
-  flex: 0 0 190px;
-}
-
-.operator-action-bar .primary-button {
-  flex: 0 0 240px;
+.operator-action-bar .operator-primary-action {
+  width: 100%;
 }
 
 .selection-summary {

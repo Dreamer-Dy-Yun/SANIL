@@ -80,15 +80,15 @@ export function CapturePage() {
 
   return (
     <section className="capture-page" aria-label="검사 촬영">
-      <section className="capture-stage" aria-live="polite">
-        <div className="capture-instruction-bar">
-          <div>
-            <span className="eyebrow">촬영 {stepNumber} / {session.totalSteps}</span>
-            <strong>{step.reference.name}</strong>
-          </div>
-          <span>{step.reference.remarks ?? "지정된 기준 위치에 맞춰 촬영합니다."}</span>
+      <div className="capture-instruction-bar">
+        <div>
+          <span className="eyebrow">촬영 {stepNumber} / {session.totalSteps}</span>
+          <strong>{step.reference.name}</strong>
         </div>
+        <span>{step.reference.remarks ?? "지정된 기준 위치에 맞춰 촬영합니다."}</span>
+      </div>
 
+      <section className="capture-stage" aria-live="polite">
         {previewUrl ? (
           <img className="capture-stage__image" src={previewUrl} alt={captured ? "촬영 미리보기" : "기준 사진"} />
         ) : (

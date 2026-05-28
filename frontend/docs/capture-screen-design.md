@@ -44,7 +44,7 @@ QA 대상 촬영은 스크롤 목록이 아니라 단계형 화면으로 만든�
 - 실제 OS, 브라우저, 카메라 사양은 실기 확인 전까지 확정하지 않는다.
 - 버튼과 주요 조작 영역은 현장 사용을 고려해 충분한 터치 영역을 확보한다.
 - 1280 x 800 landscape에서는 좌측 사이드바를 고정 노출하지 않는다. 촬영 중 탐색은 최소화하고, 필요한 경우 상단 메뉴 버튼과 일시적 drawer navigation으로 처리한다.
-- 촬영 화면은 preview를 단일 작업 영역으로 두고, 촬영 지시는 영역 상단, 촬영/확정 액션은 영역 하단에 둔다.
+- 촬영 화면은 preview를 단일 작업 영역으로 두고, 촬영 지시는 preview 위, 촬영/확정 액션은 preview 하단에 둔다.
 - 우측 기준 썸네일 패널이나 고정 보조 패널은 1차 현장 촬영 화면에서 제외한다.
 - 화면은 portrait/landscape 양쪽에서 깨지지 않아야 하며, 실제 장비 viewport를 확인한다.
 - 카메라 권한과 `getUserMedia` 동작은 실제 장비 브라우저에서 PoC로 확인한다.
@@ -57,7 +57,7 @@ QA 대상 촬영은 스크롤 목록이 아니라 단계형 화면으로 만든�
 | `CaptureProgressHeader` | 제품명, 세션, 현재 단계/전체 단계 표시 |
 | `CameraPreview` | 카메라 스트림과 캡처 이벤트 |
 | `ReferenceOverlay` | 기준 사진 외곽선/가이드라인 표시 |
-| `CaptureInstructionBar` | 촬영 영역 상단에서 촬영 지시 표시 |
+| `CaptureInstructionBar` | 촬영 영역 위에서 촬영 지시 표시 |
 | `CaptureActionBar` | 촬영, 재촬영, 촬영 확정 버튼 |
 | `CaptureProcessingBadge` | 개별 VLM 처리 상태 표시 |
 
